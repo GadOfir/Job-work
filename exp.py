@@ -23,9 +23,9 @@ def main(grip_type, leniency, wireless, lefthanded, shape, h_width, h_length, bu
     mice_details = {}
 
     # Print search parameters
-    print("Search Parameters:")
-    for key, value in search_parameters.items():
-        print(f"{key}: {value}")
+    # print("Search Parameters:")
+    # for key, value in search_parameters.items():
+    #     print(f"{key}: {value}")
 
     # Get the 'mice' list from the response, defaulting to an empty list if not found
     mice_list = response_custom.get('mice', [])
