@@ -2,13 +2,17 @@
 "# Job-work" 
 
 git clone https://github.com/GadOfir/Job-work
+
 pip install unittest requests
+
 edit test params  
 
 exmaple:
 
 notepad shape.py
+
 or
+
 nano shape.py
 
 Edit params for test , per test doc
