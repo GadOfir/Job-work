@@ -25,7 +25,7 @@ def shape():
         ('CLAW', 4, 'true', 'false', 'both', 9, 20, -1, 'Wireless true'),
         # Add more test cases here as needed
     ]
-#### rest of the code 
+.....rest of the code 
 
 
 run with 
