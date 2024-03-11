@@ -1,11 +1,11 @@
 
 "# Job-work" 
 
-git clone https://github.com/GadOfir/Job-work
+**git clone https://github.com/GadOfir/Job-work**
 
-pip install unittest requests
+**pip install unittest requests**
 
-edit test params  
+**edit test params  **
 
 exmaple:
 
@@ -15,7 +15,7 @@ or
 
 nano shape.py
 
-Edit params for test , per test doc
+**Edit params[] for test , per test doc**
 
 def shape():
     params = [
@@ -30,4 +30,4 @@ def shape():
 
 run with 
 
-python "test name"
+**python "test name"**
