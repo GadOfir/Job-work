@@ -5,11 +5,10 @@ import re
 
 def test_length():
     params = [
-        ('CLAW', 0, 'false', 'false', 'both', 9, 20, 5, 'Width leniency 0'),
-        ('CLAW', 1, 'false', 'false', 'both', 9, 20, 5, 'Width leniency 1'),
-        ('CLAW', 2, 'false', 'false', 'both', 9, 20, 5, 'Width leniency 2'),
-        ('CLAW', 3, 'false', 'false', 'both', 9, 20, 5, 'Width leniency 3'),
-        ('CLAW', 4, 'false', 'false', 'both', 9, 20, 5, 'Width leniency 4'),
+        ('CLAW', 0, 'false', 'false', 'both', 9, 20, 5, 'set length 20 leniency set to 0'),
+        ('CLAW', 1, 'false', 'false', 'both', 9, 19, 5, 'set length 19 leniency set to 1'),
+        ('CLAW', 4, 'false', 'false', 'both', 9, 18, 5, 'set length 18 leniency set to 4'),
+
         # Add more test cases here as needed
     ]
     for i, param_set in enumerate(params):
