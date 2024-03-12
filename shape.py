@@ -3,10 +3,10 @@ import re
 
 def shape():
     params = [
-        ('CLAW', 1, 'false', 'false', 'symmetrical', 9, 20, -1, 'Wireless false'),
-        ('CLAW', 2, 'false', 'false', 'symmetrical', 9, 20, -1, 'Wireless false'),
-        ('CLAW', 3, 'true', 'false', 'asymmetrical', 9, 20, -1, 'Wireless true'),
-        ('CLAW', 4, 'true', 'false', 'both', 9, 20, -1, 'Wireless true'),
+        ('CLAW', 0, 'false', 'false', 'symmetrical', 9, 20, -1, 'symmetrical, leniency set to 0'),
+        ('FINGERTIP', 2, 'false', 'false', 'symmetrical', 9, 20, -1, 'symmetrical, leniency set to 2'),
+        ('CLAW', 3, 'true', 'false', 'both', 9, 20, -1, 'both, leniency set to 3'),
+        ('PALM', 4, 'true', 'false', 'asymmetrical', 9, 20, -1, 'asymmetrical, leniency set to 4'),
         # Add more test cases here as needed
     ]
 

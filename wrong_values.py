@@ -3,8 +3,10 @@ import re
 
 def test_wrong_values_empty_response():
     params = [
-        ('CLAW', 0, 'false', 'false', 'xboth', 9, 20, -2, 'Width leniency 0'),
-        ('CLAW', 0, 'false', 'false', 'both', 9, 20, -2, 'Width leniency 0'),
+        ('CLAW', 0, 'false', 'false', 'xboth', 9, 20, -2, 'Wrong Shape Value'),
+        ('CLAW', 0, 'false', 'false', 'symmetrical', 9, 20, -2, 'Right Shape Value: Asymmetrical'),
+        ('CLAW', 0, 'false', 'false', 'symmetrical', 9, 20, -2, 'Right Shape Value: symmetrical'),
+        ('CLAW', 0, 'false', 'false', 'both', 9, 20, -2, 'Right Shape Value: both'),
 
         # Add more test cases here as needed
     ]
