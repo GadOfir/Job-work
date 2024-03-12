@@ -1,16 +1,20 @@
+from selenium.common import NoAlertPresentException
+
 from exp import main
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.alert import Alert
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 def simple_with_gui():
     params = [
-        ('CLAW', 0, 'false', 'false', 'symmetrical', 9, 20, -1, 'symmetrical, leniency set to 0'),
-        ('FINGERTIP', 2, 'false', 'false', 'symmetrical', 9, 20, -1, 'symmetrical, leniency set to 2'),
-        ('CLAW', 3, 'true', 'false', 'both', 9, 20, -1, 'both, leniency set to 3'),
-        ('PALM', 4, 'true', 'false', 'asymmetrical', 9, 20, -1, 'asymmetrical, leniency set to 4'),
+        ('PALM', 4, 'true', 'false', 'symmetrical', 9, 20, 5, 'Check GUI '),
+        ('FINGERTIP', 4, 'false', 'false', 'symmetrical', 9, 20, -1, 'Check GUI'),
+        ('CLAW', 4, 'true', 'false', 'both', 9, 20, -1, 'both, Check GUI'),
+        ('PALM', 4, 'true', 'false', 'asymmetrical', 9, 20, -1, 'Check GUI'),
         # Add more test cases here as needed
     ]
 
@@ -20,16 +24,17 @@ def simple_with_gui():
         length = len(result)  # Calculate the length of the result
 
         # Output API test result
-        print(f"Test Case {i + 1}: Description: {description}, Result Length: {length}")
+        print(f"Test Case {i + 1}: Description: {description}, Result Length on API: {length}")
 
         # Run test using GUI
-        gui_test_result = run_gui_test(*param_set[:-1])
+        gui_test_result = run_gui_test(length,*param_set)  # Corrected
         print(f"GUI Test Case {i + 1}: {gui_test_result}")  # Output GUI test result
 
 
-def run_gui_test(*params):
+def run_gui_test(length_from_api,*params):
     # Extract parameters
-    grip_style, leniency, boolean_one, boolean_two, symmetry, grip_width, hand_length, other_param, description = params
+    grip_style, leniency, wireless, lefhand, symmetry, grip_width, hand_length, numberofbuttens, description = params
+    result_gui = 0
 
     # Initialize Selenium WebDriver
     driver = webdriver.Chrome()  # You can use any browser driver here (e.g., Chrome, Firefox)
@@ -42,17 +47,76 @@ def run_gui_test(*params):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//input[@name='h_length']")))
 
         # Find the input element with the name 'h_length'
-        h_length_input = driver.find_element_by_xpath("//input[@name='h_length']")
-
-        # Set the value of the input element with the hand length parameter
+        h_length_input = driver.find_element(By.XPATH, "//input[@name='h_length']")
         h_length_input.send_keys(str(hand_length))
 
-        # Return test result
+        h_width_input = driver.find_element(By.XPATH, "//input[@name='h_width']")
+        h_width_input.send_keys(str(grip_width))
+
+        # XPath expressions for radio buttons
+        xpath_leniency = f"//input[@class='form_radio' and @name='leniency' and @value='{leniency}']"
+        radio_button_leniency = driver.find_element(By.XPATH, xpath_leniency)
+        radio_button_leniency.click()
+
+        xpath_grip_type = f"//input[@class='form_radio' and @name='grip_type' and @value='{grip_style}']"
+        radio_button_grip_type = driver.find_element(By.XPATH, xpath_grip_type)
+        radio_button_grip_type.click()
+
+        xpath_shape = f"//input[@class='form_radio' and @name='shape' and @value='{symmetry}']"
+        radio_button_shape = driver.find_element(By.XPATH, xpath_shape)
+        radio_button_shape.click()
+
+        if wireless != 'false':
+            xpath_wireless_checkbox = f"//input[@type='checkbox' and @name='wireless']"
+            checkbox_wireless = driver.find_element(By.XPATH, xpath_wireless_checkbox)
+            checkbox_wireless.click()
+        if lefhand != 'false':
+            xpath_lefthanded_checkbox = "//input[@type='checkbox' and @name='lefthanded']"
+            checkbox_lefthanded = driver.find_element(By.XPATH, xpath_lefthanded_checkbox)
+            checkbox_lefthanded.click()
+        if numberofbuttens != -1:
+            xpath_numButtons_input = "//input[@id='numButtons']"
+            numButtons_input = driver.find_element(By.XPATH, xpath_numButtons_input)
+            numButtons_input.send_keys(str(numberofbuttens))
+
+        xpath_searchButton_button = "//input[@id='searchButton' and @type='button' and @value='SEARCH']"
+        xpath_searchButton_button = driver.find_element(By.XPATH, xpath_searchButton_button)
+        xpath_searchButton_button.click()
+
+        # Set the value of the input element with the hand length parameter
+        #ActionChains(driver).move_to_element(h_length_input).click().send_keys(str(hand_length)).perform()
+        try:
+            alert = driver.switch_to.alert
+            alert_text = alert.text
+            print("Alert Text:", alert_text)
+        except NoAlertPresentException:
+            try:
+                row_index = 1
+                driver.implicitly_wait(5)  # Wait for up to 10 seconds
+                while True:
+                    row_xpath = f"//*[@id='resultsTable']/tr[{row_index}]"
+                    # Try to find the row
+                    row = driver.find_element(By.XPATH, row_xpath)
+                    # If found, increment the row index
+                    row_index += 1
+            except:
+                # Catch the exception when no more rows are found
+                print("Number of table rows found on GUI:", row_index - 1)
+
+
+
+
         return "Pass"  # Replace with actual test result (e.g., "Pass" or "Fail")
 
     finally:
-        # Close the browser
+        result_gui = row_index - 1
+        if result_gui == length_from_api:
+            return "Pass, API and GUI results match"
+        else:
+            return "Fail API and GUI results do not match"
         driver.quit()
+        # Close the browser
+
 
 
 if __name__ == "__main__":
