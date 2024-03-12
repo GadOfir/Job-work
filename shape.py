@@ -3,9 +3,9 @@ import re
 
 def shape():
     params = [
-        ('CLAW', 4, 'false', 'false', 'symmetrical', 9, 20, -1, 'Wireless false'),
-        ('CLAW', 4, 'false', 'false', 'symmetrical', 9, 20, -1, 'Wireless false'),
-        ('CLAW', 4, 'true', 'false', 'asymmetrical', 9, 20, -1, 'Wireless true'),
+        ('CLAW', 1, 'false', 'false', 'symmetrical', 9, 20, -1, 'Wireless false'),
+        ('CLAW', 2, 'false', 'false', 'symmetrical', 9, 20, -1, 'Wireless false'),
+        ('CLAW', 3, 'true', 'false', 'asymmetrical', 9, 20, -1, 'Wireless true'),
         ('CLAW', 4, 'true', 'false', 'both', 9, 20, -1, 'Wireless true'),
         # Add more test cases here as needed
     ]
