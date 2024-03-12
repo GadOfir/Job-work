@@ -3,11 +3,11 @@ import re
 
 def number_of_buttons():
     params = [
-        ('CLAW', 0, 'false', 'false', 'symmetrical', 9, 20, 3, 'Wireless false'),
-        ('CLAW', 0, 'false', 'false', 'symmetrical', 9, 20, 4, 'Wireless false'),
-        ('CLAW', 0, 'true', 'false', 'asymmetrical', 9, 20, 5, 'Wireless true'),
-        ('CLAW', 0, 'true', 'false', 'both', 9, 20, 6, 'Wireless true'),
-        ('CLAW', 0, 'true', 'false', 'both', 9, 20, 6, 'Wireless true'),
+        ('CLAW', 0, 'false', 'false', 'symmetrical', 9, 20, 3, '3 buttons, leniency set to 0'),
+        ('CLAW', 0, 'false', 'false', 'symmetrical', 9, 20, 4, '4 buttons, leniency set to 0'),
+        ('CLAW', 0, 'true', 'false', 'asymmetrical', 9, 20, 5, '5 buttons, leniency set to 0 '),
+        ('CLAW', 0, 'true', 'false', 'both', 9, 20, 6, '6 buttons, leniency set to 0'),
+        ('CLAW', 0, 'true', 'false', 'both', 9, 20, 7, '7 buttons, leniency set to 0'),
         # Add more test cases here as needed
     ]
 

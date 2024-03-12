@@ -4,8 +4,8 @@ import re
 def test_wireless_integrity():
     params = [
         ('CLAW', 0, 'false', 'false', 'both', 9, 20, -1, 'Wireless false, low leniency'),
-        ('CLAW', 0, 'true', 'false', 'both', 9, 20, -1, 'Wireless true, low leniency'),
-        ('CLAW', 4, 'false', 'false', 'both', 9, 20, -1, 'Wireless false, high leniency'),
+        ('CLAW-PALM', 0, 'true', 'false', 'both', 9, 20, -1, 'Wireless true, low leniency'),
+        ('PALM', 4, 'false', 'false', 'both', 9, 20, -1, 'Wireless false, high leniency'),
         ('FINGERTIP', 4, 'true', 'false', 'both', 9, 20, -1, 'Wireless true , high leniency'),
         # Add more test cases here as needed
     ]

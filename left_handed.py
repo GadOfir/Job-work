@@ -5,10 +5,10 @@ import re
 
 def left_handed():
     params = [
-        ('CLAW', 0, 'false', 'false', 'both', 9, 20, 5, 'Width leniency 0'),
-        ('CLAW', 0, 'true', 'false', 'both', 9, 20, 5, 'Width leniency 0'),
-        ('CLAW', 0, 'false', 'true', 'both', 9, 20, 5, 'Width leniency 0'),
-        ('CLAW', 0, 'true', 'true', 'both', 9, 20, 5, 'Width leniency 0'),
+        ('CLAW', 0, 'false', 'false', 'both', 9, 20, -1, 'left_handed false leniency 0'),
+        ('PALM', 4, 'true', 'false', 'both', 9, 20, -1, 'left_handed false leniency 4'),
+        ('FINGERTIP', 0, 'false', 'true', 'both', 9, 20, -1, 'left_handed true leniency 0'),
+        ('CLAW', 4, 'true', 'true', 'both', 9, 20, -1, 'left_handed true leniency 0'),
     ]
         # Add more test cases here as needed
     for i, param_set in enumerate(params):
@@ -22,7 +22,7 @@ def left_handed():
             expected_left_handed = match.group(1)
             actual_left_handed = match.group(2)
             if expected_left_handed != actual_left_handed:
-                if expected_left_handed != 'both':
+                if actual_left_handed != 'both':
                     print(f"Test Case {i + 1}: Description: {description}, Name: {issue_name}, Left Handed: {left_handed}")
             else:
                 continue

@@ -6,8 +6,8 @@ import re
 def test_length():
     params = [
         ('CLAW', 0, 'false', 'false', 'both', 9, 20, 5, 'set length 20 leniency set to 0'),
-        ('CLAW', 1, 'false', 'false', 'both', 9, 19, 5, 'set length 19 leniency set to 1'),
-        ('CLAW', 4, 'false', 'false', 'both', 9, 18, 5, 'set length 18 leniency set to 4'),
+        ('FINGERTIP', 1, 'false', 'false', 'both', 9, 19, 5, 'set length 19 leniency set to 1'),
+        ('PALM', 4, 'false', 'false', 'both', 9, 18, 5, 'set length 18 leniency set to 4'),
 
         # Add more test cases here as needed
     ]
