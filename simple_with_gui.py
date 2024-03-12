@@ -11,8 +11,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 def simple_with_gui():
     params = [
-        ('CLAW', 1, 'true', 'true', 'both', 9, 20, 6, 'Check GUI'),
-        ('CLAW', 2, 'true', 'true', 'both', 9, 20, 7, 'Check GUI'),
+        ('CLAW', 4, 'true', 'true', 'both', 9, 20, 3, 'Check GUI'),
+        ('CLAW', 4, 'true', 'true', 'both', 9, 20, 3, 'Check GUI'),
         ('CLAW', 4, 'true', 'true', 'both', 9, 20, 4, 'Check GUI'),
         ('CLAW', 3, 'true', 'true', 'both', 9, 20, 5, 'Check GUI'),
         # Add more test cases here as needed
