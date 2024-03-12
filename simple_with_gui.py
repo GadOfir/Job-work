@@ -11,10 +11,10 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 def simple_with_gui():
     params = [
-        ('PALM', 4, 'true', 'false', 'symmetrical', 9, 20, 5, 'Check GUI '),
-        ('FINGERTIP', 4, 'false', 'false', 'symmetrical', 9, 20, -1, 'Check GUI'),
-        ('CLAW', 4, 'true', 'false', 'both', 9, 20, -1, 'both, Check GUI'),
-        ('PALM', 4, 'true', 'false', 'asymmetrical', 9, 20, -1, 'Check GUI'),
+        ('CLAW', 1, 'true', 'true', 'both', 9, 20, 6, 'Check GUI'),
+        ('CLAW', 2, 'true', 'true', 'both', 9, 20, 7, 'Check GUI'),
+        ('CLAW', 4, 'true', 'true', 'both', 9, 20, 4, 'Check GUI'),
+        ('CLAW', 3, 'true', 'true', 'both', 9, 20, 5, 'Check GUI'),
         # Add more test cases here as needed
     ]
 
@@ -94,14 +94,33 @@ def run_gui_test(length_from_api,*params):
                 row_index = 1
                 driver.implicitly_wait(5)  # Wait for up to 10 seconds
                 while True:
+
                     row_xpath = f"//*[@id='resultsTable']/tr[{row_index}]"
                     # Try to find the row
                     row = driver.find_element(By.XPATH, row_xpath)
                     # If found, increment the row index
                     row_index += 1
             except:
-                # Catch the exception when no more rows are found
-                print("Number of table rows found on GUI:", row_index - 1)
+                if row_index>3:
+                    print("Number of table rows found on GUI:", row_index - 1)
+                else:
+                    WebDriverWait(driver, 10).until(
+                        EC.presence_of_element_located((By.XPATH, "//input[@name='h_length']")))
+
+                    # Find the element with the specified XPath
+                    no_results_element = driver.find_element(By.XPATH, "//*[@id='resultsTable']/tr/td")
+                    row_index_temp = row_index
+                    row_index = 1
+
+                    # Check if the text of the element is "No results"
+                    if no_results_element.text.strip() == "No results":
+                        print("No results found.")
+                        return "No Results"
+                    else:
+                        # Proceed with further processing if results are found
+                        row_index = row_index_temp
+                        print("Number of table rows found on GUI:", row_index - 1)
+
 
 
 
