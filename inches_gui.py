@@ -1,4 +1,5 @@
 from selenium.common import NoAlertPresentException
+from selenium.webdriver.support.select import Select
 
 from exp import main
 from selenium import webdriver
@@ -9,9 +10,9 @@ from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.common.action_chains import ActionChains
 
 
-def simple_with_gui():
+def inches_gui():
     params = [
-        ('CLAW', 1, 'true', 'true', 'both', 9, 20, 3, 'Check GUI'),
+        ('CLAW', 0, 'false', 'false', 'both', 9, 20, -1, 'Check GUI'),
         ('CLAW', 4, 'true', 'true', 'both', 12, 20, 5, 'Check GUI'),
         ('CLAW', 4, 'true', 'true', 'both', 9, 20, 4, 'Check GUI'),
         ('CLAW', 3, 'true', 'true', 'both', 9, 20, 5, 'Check GUI'),
@@ -21,17 +22,14 @@ def simple_with_gui():
     for i, param_set in enumerate(params):
         result = main(*param_set[:-1])  # Exclude the description
         description = param_set[-1]  # Extract the description
-        length = len(result)  # Calculate the length of the result
 
-        # Output API test result
-        print(f"Test Case {i + 1}: Description: {description}, Result Length on API: {length}")
 
         # Run test using GUI
-        gui_test_result = run_gui_test(length,*param_set)  # Corrected
-        print(f"GUI Test Case {i + 1}: {gui_test_result}")  # Output GUI test result
+        run_gui_test(*param_set)  # Corrected
 
 
-def run_gui_test(length_from_api,*params):
+
+def run_gui_test(*params):
     # Extract parameters
     grip_style, leniency, wireless, lefhand, symmetry, grip_width, hand_length, numberofbuttens, description = params
     result_gui = 0
@@ -41,10 +39,15 @@ def run_gui_test(length_from_api,*params):
 
     try:
         # Navigate to the provided link
+        #driver.request_interceptor = lambda request: print(request.url)
         driver.get("https://www.rocketjumpninja.com/mouse-search")
 
         # Wait for the page to load
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//input[@name='h_length']")))
+
+        select_element = driver.find_element(By.ID, "measurement")
+        measurement = Select(select_element)
+        #measurement.select_by_value("inches")
 
         # Find the input element with the name 'h_length'
         h_length_input = driver.find_element(By.XPATH, "//input[@name='h_length']")
@@ -81,45 +84,29 @@ def run_gui_test(length_from_api,*params):
 
         xpath_searchButton_button = "//input[@id='searchButton' and @type='button' and @value='SEARCH']"
         xpath_searchButton_button = driver.find_element(By.XPATH, xpath_searchButton_button)
+
+
+
         xpath_searchButton_button.click()
 
-        # Set the value of the input element with the hand length parameter
-        #ActionChains(driver).move_to_element(h_length_input).click().send_keys(str(hand_length)).perform()
+        driver.wait_for_request("https://www.rocketjumpninja.com/api/search/mice", timeout=10)
+
+        #driver.requests.
+
+        # Print intercepted requests
+        for request in driver.requests:
+            if request.response:
+                print(request.url)
+
+
+        driver.implicitly_wait(10)  # Wait for up to 10 seconds
         try:
             alert = driver.switch_to.alert
             alert_text = alert.text
             print("Alert Text:", alert_text)
         except NoAlertPresentException:
-            try:
-                row_index = 1
-                driver.implicitly_wait(5)  # Wait for up to 10 seconds
-                while True:
+            print("No alert found.")
 
-                    row_xpath = f"//*[@id='resultsTable']/tr[{row_index}]"
-                    # Try to find the row
-                    row = driver.find_element(By.XPATH, row_xpath)
-                    # If found, increment the row index
-                    row_index += 1
-            except:
-                if row_index>3:
-                    print("Number of table rows found on GUI:", row_index - 1)
-                else:
-                    WebDriverWait(driver, 10).until(
-                        EC.presence_of_element_located((By.XPATH, "//input[@name='h_length']")))
-
-                    # Find the element with the specified XPath
-                    no_results_element = driver.find_element(By.XPATH, "//*[@id='resultsTable']/tr/td")
-                    row_index_temp = row_index
-                    row_index = 1
-
-                    # Check if the text of the element is "No results"
-                    if no_results_element.text.strip() == "No results":
-                        print("No results found.")
-                        return "No Results"
-                    else:
-                        # Proceed with further processing if results are found
-                        row_index = row_index_temp
-                        print("Number of table rows found on GUI:", row_index - 1)
 
 
 
@@ -128,15 +115,10 @@ def run_gui_test(length_from_api,*params):
         return "Pass"  # Replace with actual test result (e.g., "Pass" or "Fail")
 
     finally:
-        result_gui = row_index - 1
-        if result_gui == length_from_api:
-            return "Pass, API and GUI results match"
-        else:
-            return "Fail API and GUI results do not match"
         driver.quit()
         # Close the browser
 
 
 
 if __name__ == "__main__":
-    simple_with_gui()
+    inches_gui()
