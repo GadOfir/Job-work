@@ -3,7 +3,7 @@
 
 **git clone https://github.com/GadOfir/Job-work**
 
-**pip install unittest requests**
+**pip install unittest requests selenium**
 
 **edit test params  **
 
