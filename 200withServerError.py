@@ -2,7 +2,7 @@ from exp import main
 import time
 
 
-def test_performance():
+def WithServerError():
     params = [
         ('CLAW', 0, 'false', 'false', 'symmetrical', 9, 20, 'XX'),
         ('FINGERTIP', 'xx', 'false', 'false', 'symmetrical', 9, 20, -1),
