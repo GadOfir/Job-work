@@ -26,13 +26,16 @@ class BaseTest(unittest.TestCase):
 
         print("Request URL:", url)  # Print complete request URL with parameters
         response = requests.get(url)
-        return response.json()  # Return the JSON response directly
+        return response.json() ,url # Return the JSON response directly
 
     def send_test_request(self, params=None):
-        # Method to send a request with provided parameters or default parameters if none are provided
         if params is None:
             params = self.default_params
-        return self._send_request(params)
+
+            # Call _send_request and get both response and URL
+        response, url = self._send_request(params)
+        #print("Request URL in send_test_request:", url)  # Print URL from send_test_request
+        return response
 
 if __name__ == '__main__':
     unittest.main()
