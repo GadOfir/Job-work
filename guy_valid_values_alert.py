@@ -13,8 +13,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 def guy_valid_values_alert():
     params = [
         ('CLAW', 0, 'false', 'false', 'both', 9, 20, -1, 'Check GUI'),
-        ('CLAW', 4, 'true', 'true', 'both', 12, 20, 5, 'Check GUI'),
-        ('CLAW', 4, 'true', 'true', 'both', 9, 20, 4, 'Check GUI'),
+        ('PALM', 4, 'true', 'true', 'both', 12, 20, 5, 'Check GUI'),
+        ('FINGERTIP', 4, 'true', 'true', 'both', 9, 20, 4, 'Check GUI'),
         ('CLAW', 3, 'true', 'true', 'both', 9, 20, 5, 'Check GUI'),
         # Add more test cases here as needed
     ]

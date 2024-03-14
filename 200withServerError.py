@@ -19,4 +19,4 @@ def WithServerError():
 
 
 if __name__ == "__main__":
-    test_performance()
+    WithServerError()

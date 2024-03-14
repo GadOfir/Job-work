@@ -11,10 +11,11 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 def simple_with_gui():
     params = [
-        ('CLAW', 1, 'true', 'true', 'both', 9, 20, 3, 'Check GUI'),
+         ('PALM', 4, 'false', 'false', 'both', 9, 20, -1, 'Check GUI'),#4
+        #('CLAW', 0, 'true', 'false', 'both', 9, 20, -1, 'Check GUI'),#4
         ('CLAW', 4, 'true', 'true', 'both', 12, 20, 5, 'Check GUI'),
         ('CLAW', 4, 'true', 'true', 'both', 9, 20, 4, 'Check GUI'),
-        ('CLAW', 3, 'true', 'true', 'both', 9, 20, 5, 'Check GUI'),
+        ('FINGERTIP', 3, 'true', 'true', 'both', 9, 20, 5, 'Check GUI'),
         # Add more test cases here as needed
     ]
 
