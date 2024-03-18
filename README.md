@@ -31,3 +31,20 @@ def shape():
 run with 
 
 **python "test name"**
+
+
+VM
+pip install virtualenv
+
+# Navigate to Your Project Directory
+cd your_project_directory
+
+# Create the Virtual Environment
+python -m venv venv
+# Or, for older Python versions:
+# virtualenv venv
+
+# Activate the Virtual Environment
+# Windows
+venv\Scripts\activate
+# MacOS and Linux
